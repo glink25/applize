@@ -3,21 +3,23 @@ import HrefManager from "./href";
 import "./style.css";
 
 const app = document.querySelector<HTMLDivElement>("#app")!;
+const hrefManager = new HrefManager();
+
+(document.getElementById("main-frame") as HTMLIFrameElement).src =
+  hrefManager.value ?? "";
 
 if (
   navigator.userAgent.indexOf("iPhone") != -1 ||
   navigator.userAgent.indexOf("Mac OS") != -1
 ) {
   if (!(window.navigator as any).standalone) {
-    // console.log("此页面为PWA站点，将其安装到主屏幕来获得最佳体验");
-
     app.innerHTML = `
     <span class="col"><span class="name">applize url: </span><input id="url-input" /><button id="url-button">set</button></span>
     <span class="col"><span class="name">icon url: </span><input id="icon-input" /><button id="icon-button">set</button></span>
     <span class="col"><span class="name">icon bgColor: </span><input id="icon-bgcolor-input" /><button id="question-button">?</button></span>
     `;
     const urlInput = document.getElementById("url-input") as HTMLInputElement;
-    const hrefManager = new HrefManager(urlInput);
+    urlInput.value = hrefManager.value ?? "";
 
     document.getElementById("url-button")!.addEventListener("click", () => {
       hrefManager.value = urlInput.value;

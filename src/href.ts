@@ -1,8 +1,5 @@
 const URL_KEY = "url";
 export default class HrefManager {
-  constructor(el: HTMLInputElement) {
-    el.value = this.value ?? "";
-  }
   get value() {
     return decodeURIComponent(
       new URLSearchParams(location.search).get(URL_KEY) ?? ""
